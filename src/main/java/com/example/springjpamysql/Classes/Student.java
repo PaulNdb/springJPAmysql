@@ -1,5 +1,4 @@
 package com.example.springjpamysql.Classes;
-import com.example.springjpamysql.Classes.Campus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,19 +9,23 @@ public class Student implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     private String name;
     private String family;
     private String tel;
     private String email;
     private Long campusId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinColumn(name = "campusId",insertable=false, updatable=false)
     private Campus campus;
 
+
+
     public Student() {
+
     }
 
     public Student(Long id, String name, String family, String tel, String email, Long campusId) {
