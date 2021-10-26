@@ -1,5 +1,8 @@
 package com.example.springjpamysql.Classes;
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,14 +18,17 @@ public class Student implements Serializable{
     private String email;
     private Long campusId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = {
+    @ManyToOne(fetch = FetchType.LAZY,
+            optional = false,cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
+
     @JoinColumn(name = "campusId",insertable=false, updatable=false)
     private Campus campus;
 
-
+    @ManyToMany(mappedBy = "students")
+    List<Cours> course = new ArrayList<>();
 
     public Student() {
 
@@ -91,6 +97,10 @@ public class Student implements Serializable{
 
     public void setCampus(Campus campus) {
         this.campus = campus;
+    }
+
+    public void addCours(Cours cours){
+        course.add(cours);
     }
 
     @Override

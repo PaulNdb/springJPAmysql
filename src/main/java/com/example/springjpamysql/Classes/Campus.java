@@ -1,5 +1,4 @@
 package com.example.springjpamysql.Classes;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -14,7 +13,6 @@ public class Campus implements Serializable{
     private String name;
     private String location;
     @Column(unique = true)
-
 
     @OneToMany(mappedBy = "campus", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
