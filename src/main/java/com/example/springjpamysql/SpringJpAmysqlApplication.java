@@ -4,24 +4,40 @@ import com.example.springjpamysql.Classes.AcademicProfile;
 import com.example.springjpamysql.Classes.Campus;
 import com.example.springjpamysql.Classes.Cours;
 import com.example.springjpamysql.Classes.Student;
-
 import com.example.springjpamysql.Repositories.AcademicProfileRepository;
 import com.example.springjpamysql.Repositories.CampusRepository;
 import com.example.springjpamysql.Repositories.CoursRepository;
 import com.example.springjpamysql.Repositories.StudentRepository;
-
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 
-import java.util.HashSet;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 @SpringBootApplication
 public class SpringJpAmysqlApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         SpringApplication.run(SpringJpAmysqlApplication.class, args);
+        String fileName = "fileDB.txt";
+        readUsingScanner(fileName);
+
+    }
+    private static void readUsingScanner(String fileName) throws IOException {
+        Path path = Paths.get(fileName);
+        Scanner scanner = new Scanner(path);
+        System.out.println("Read text file using Scanner");
+        //read line by line
+        while(scanner.hasNextLine()){
+            //process each line
+            String line = scanner.nextLine();
+            System.out.println(line);
+        }
+        scanner.close();
     }
     @Bean
     public CommandLineRunner mappingDemo(CampusRepository campusRepository,
